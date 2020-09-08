@@ -1,0 +1,18 @@
+{
+  "name": "clamav-desktop",
+  "version": "0.1.0",
+  "description": "Clamav desktop interface based on Electron.",
+  "private": true,
+  "main": "main.js",
+  "dependencies": {},
+  "devDependencies": {
+    "clamscan": "^1.3.3",
+    "electron": "^10.1.1"
+  },
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Jiab77 <jonathan.barda@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/Jiab77/clamav-desktop"
+}
