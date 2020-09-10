@@ -72,6 +72,26 @@ app.on('activate', () => {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 
+// Inter process communication tests
+// From: https://www.electronjs.org/docs/api/ipc-main
+
+// In main process.
+const { ipcMain } = require('electron')
+
+/* async */
+ipcMain.on('asynchronous-message', (event, arg) => {
+  console.log('Running [async] inter-process communication tests...')
+  console.log('Received [' + arg + '], sending [pong]...') // prints "ping"
+  event.reply('asynchronous-reply', 'pong')
+})
+
+/* sync */
+/* ipcMain.on('synchronous-message', (event, arg) => {
+  console.log('Running [sync] inter-process communication tests...')
+  console.log('Received [' + arg + '], sending [pong]...') // prints "ping"
+  event.returnValue = 'pong'
+}) */
+
 console.log('Starting ClamAV...');
 
 // Get instance by resolving ClamScan promise object

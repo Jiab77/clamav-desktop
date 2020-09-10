@@ -98,6 +98,26 @@
           }
         );
       }, 1000);
+
+      // Inter process communication tests
+      // From: https://www.electronjs.org/docs/api/ipc-main
+
+      // In renderer process (web page).
+      const { ipcRenderer } = require('electron')
+
+      /* async */
+      console.log('Running [async] inter-process communication tests...')
+      console.log('Sending [ping], waiting for [pong]...')
+      ipcRenderer.on('asynchronous-reply', (event, arg) => {
+        console.log('Received [' + arg + ']', event) // prints "pong"
+      })
+      ipcRenderer.send('asynchronous-message', 'ping')
+
+      /* sync */
+      /* console.log('Running [sync] inter-process communication tests...')
+      console.log('Sending [ping], waiting for [pong]...')
+      console.log(ipcRenderer.sendSync('synchronous-message', 'ping')) // prints "pong" */
+
     </script>
   </body>
 </html>
