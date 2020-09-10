@@ -43,60 +43,6 @@ function createWindow () {
   // and load the index.html file of the application.
   win.loadFile('index.html')
 
-  console.log('Starting ClamAV...');
-
-  // Get instance by resolving ClamScan promise object
-  ClamScan.then(async clamscan => {
-    try {
-      // You can re-use the `clamscan` object as many times as you want
-      const version = await clamscan.get_version();
-      console.log('ClamAV Started.');
-      console.log(`ClamAV Version: ${version}`);
-      console.log('Scanning project folder...');
-
-      /* const {is_infected, file, viruses} = await clamscan.is_infected('/some/file.zip');
-      if (is_infected) console.log(`${file} is infected with ${viruses}!`); */
-
-      /* try {
-        const {path, is_infected, good_files, bad_files, viruses} = await clamscan.scan_dir('/home/jiab77/Projects/clamav-desktop');
-        if (bad_files.length > 0) {
-            console.log(`${path} was infected. The offending files (${bad_files.join (', ')}) have been quarantined.`);
-            console.log(`Viruses Found: ${viruses.join(', ')}`);
-        } else {
-            console.log("Everything looks good! No problems here!.");
-        }
-      } catch (err) {
-        // Handle any errors raised by the code in the try block
-        console.group('Catched error')
-        console.error(err)
-        console.groupEnd()
-      } */
-
-      clamscan.scan_dir('/home/jiab77/Projects/clamav-desktop', (err, good_files, bad_files, viruses) => {
-          if (err) return console.error(err);
-
-          if (bad_files.length > 0) {
-              console.log(`${path} was infected. The offending files (${bad_files.join (', ')}) have been quarantined.`);
-              console.log(`Viruses Found: ${viruses.join(', ')}`);
-          } else {
-              console.log('Everything looks good! No problems here!.');
-          }
-          console.log(`File scanned: ${good_files.length}`)
-      });
-
-    } catch (err) {
-      // Handle any errors raised by the code in the try block
-      console.group('Catched error')
-      console.error(err)
-      console.groupEnd()
-    }
-  }).catch(err => {
-      // Handle errors that may have occurred during initialization
-      console.group('Init catched error')
-      console.error(err)
-      console.groupEnd()
-  });
-
   // Open the DevTools.
   win.webContents.openDevTools()
 }
@@ -125,3 +71,57 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
+console.log('Starting ClamAV...');
+
+// Get instance by resolving ClamScan promise object
+ClamScan.then(async clamscan => {
+  try {
+    // You can re-use the `clamscan` object as many times as you want
+    const version = await clamscan.get_version();
+    console.log('ClamAV Started.');
+    console.log(`ClamAV Version: ${version}`);
+    console.log('Scanning project folder...');
+
+    /* const {is_infected, file, viruses} = await clamscan.is_infected('/some/file.zip');
+    if (is_infected) console.log(`${file} is infected with ${viruses}!`); */
+
+    /* try {
+      const {path, is_infected, good_files, bad_files, viruses} = await clamscan.scan_dir('/home/jiab77/Projects/clamav-desktop');
+      if (bad_files.length > 0) {
+          console.log(`${path} was infected. The offending files (${bad_files.join (', ')}) have been quarantined.`);
+          console.log(`Viruses Found: ${viruses.join(', ')}`);
+      } else {
+          console.log("Everything looks good! No problems here!.");
+      }
+    } catch (err) {
+      // Handle any errors raised by the code in the try block
+      console.group('Catched error')
+      console.error(err)
+      console.groupEnd()
+    } */
+
+    clamscan.scan_dir('/home/jiab77/Projects/clamav-desktop', (err, good_files, bad_files, viruses) => {
+        if (err) return console.error(err);
+
+        if (bad_files.length > 0) {
+            console.log(`${path} was infected. The offending files (${bad_files.join (', ')}) have been quarantined.`);
+            console.log(`Viruses Found: ${viruses.join(', ')}`);
+        } else {
+            console.log('Everything looks good! No problems here!.');
+        }
+        console.log(`File scanned: ${good_files.length}`)
+    });
+
+  } catch (err) {
+    // Handle any errors raised by the code in the try block
+    console.group('Catched error')
+    console.error(err)
+    console.groupEnd()
+  }
+}).catch(err => {
+    // Handle errors that may have occurred during initialization
+    console.group('Init catched error')
+    console.error(err)
+    console.groupEnd()
+});
