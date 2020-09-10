@@ -8,9 +8,90 @@
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
   </head>
   <body>
-    <h1>Hello World!</h1>
-    We are using node <script>document.write(process.versions.node)</script>,
-    Chrome <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
+    <div style="width: 55%; margin: 2em auto;">
+      <div style="float: left;">
+        <h1>Hello World!</h1>
+        You are using node <script>document.write(process.versions.node)</script>,
+        Chrome <script>document.write(process.versions.chrome)</script>,
+        and Electron <script>document.write(process.versions.electron)</script>.
+      </div>
+      <div style="float: left; margin-left: 1em;">
+        <h1 style="text-align: center;">System Info</h1>
+        <ul>
+          <li>CPU (usage): <span id="cpu"></span> %</li>
+          <li>
+            Memory (free / total): <span id="mem"></span> bytes
+            <ul>
+              <li>Process (private / resident / shared): <span id="proc"></span> bytes</li>
+              <li>Heap (used / total / max): <span id="heap"></span> bytes</li>
+              <li>Blink (used / total): <span id="blink"></span> bytes</li>
+            </ul>
+          </li>
+          <li>Kernel: <script>document.write(process.getSystemVersion())</script></li>
+          <li>Uptime: <span id="uptime"></span> seconds</li>
+        </ul>
+      </div>
+      <hr style="clear: both; margin: 1em 0;">
+      <div style="float: left;">
+        <h1>User Info</h1>
+        <ul>
+          <li>Username: <script>document.write(process.env.USERNAME)</script></li>
+          <li>Lang: <script>document.write(process.env.LANG)</script></li>
+          <li>Home: <script>document.write(process.env.HOME)</script></li>
+          <li>Path: <script>document.write(process.env.PATH)</script></li>
+        </ul>
+      </div>
+    </div>
+    <script>
+      console.log('Current process:', process);
+      console.log('CPU:', process.getCPUUsage());
+      console.log('Memory:', process.getSystemMemoryInfo());
+      console.log('Heap:', process.getHeapStatistics());
+      console.log('Blink:', process.getBlinkMemoryInfo());
+
+      const cpu = document.getElementById('cpu');
+      const mem = document.getElementById('mem');
+      const heap = document.getElementById('heap');
+      const blink = document.getElementById('blink');
+      const proc = document.getElementById('proc');
+      const uptime = document.getElementById('uptime');
+
+      // Initial display
+      cpu.innerText = process.getCPUUsage().percentCPUUsage;
+      mem.innerText = process.getSystemMemoryInfo().free + ' / ' + process.getSystemMemoryInfo().total;
+      heap.innerText = process.getHeapStatistics().usedHeapSize + ' / ' + process.getHeapStatistics().totalHeapSize + ' / ' + process.getHeapStatistics().heapSizeLimit;
+      blink.innerText = process.getBlinkMemoryInfo().allocated + ' / ' + process.getBlinkMemoryInfo().total;
+      uptime.innerText = process.uptime();
+
+      var initialPromise = process.getProcessMemoryInfo();
+      initialPromise.then(
+        function (res) {
+          console.log('Process:', res);
+          proc.innerText = res.private + ' / ' + res.residentSet + ' / ' + res.shared;
+        },
+        function (err) {
+          console.error(err);
+        }
+      );
+
+      // Refresh display
+      setInterval(() => {
+        cpu.innerText = process.getCPUUsage().percentCPUUsage;
+        mem.innerText = process.getSystemMemoryInfo().free + ' / ' + process.getSystemMemoryInfo().total;
+        heap.innerText = process.getHeapStatistics().usedHeapSize + ' / ' + process.getHeapStatistics().totalHeapSize + ' / ' + process.getHeapStatistics().heapSizeLimit;
+        blink.innerText = process.getBlinkMemoryInfo().allocated + ' / ' + process.getBlinkMemoryInfo().total;
+        uptime.innerText = process.uptime();
+
+        var promise = process.getProcessMemoryInfo();
+        promise.then(
+          function (res) {
+            proc.innerText = res.private + ' / ' + res.residentSet + ' / ' + res.shared;
+          },
+          function (err) {
+            console.error(err);
+          }
+        );
+      }, 1000);
+    </script>
   </body>
 </html>
