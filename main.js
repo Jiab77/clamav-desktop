@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, Tray } = require('electron')
 const NodeClam = require('clamscan')
 const ClamScan = new NodeClam().init({
   remove_infected: false, // If true, removes infected files
@@ -30,18 +30,32 @@ const ClamScan = new NodeClam().init({
 })
 
 function createWindow () {
+  // App icon
+  // https://www.electronjs.org/docs/api/native-image#nativeimage
+  // const appIcon = new Tray('favicon.png')
+
   // Create the browser window,
   const win = new BrowserWindow({
-    // width: 800,
-    // height: 600,
-    fullscreen: true,
+    width: 800,
+    height: 600,
+    icon: 'favicon.png',
+    backgroundColor: '#212121',
     darkTheme: true,
+    show: false,
     vibrancy: 'dark',
     webPreferences: {
       nodeIntegration: true,
       worldSafeExecuteJavaScript: true
     }
   })
+
+  // Maximize window on start
+  win.maximize()
+
+  // Debug
+  // console.group('Main')
+  // console.log(appIcon, win)
+  // console.groupEnd()
 
   // and load the index.html file of the application.
   win.loadFile('index.html')
@@ -69,6 +83,11 @@ app.on('activate', () => {
   // dock icon is clicked and there are no other windows open.
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow()
+
+    // Debug
+    // console.group('Main')
+    // console.log('Window created and loaded.')
+    // console.groupEnd()
   }
 })
 
