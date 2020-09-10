@@ -10,9 +10,9 @@ console.log('Running [async] inter-process communication tests...')
 console.log('Sending [ping], waiting for [pong]...')
 console.groupEnd()
 ipcRenderer.on('asynchronous-reply', (event, arg) => {
-	console.group('IPC')
-	console.log('Received [' + arg + ']', event) // prints "pong"
-	console.groupEnd()
+  console.group('IPC')
+  console.log('Received [' + arg + ']', event) // prints "pong"
+  console.groupEnd()
 })
 ipcRenderer.send('asynchronous-message', 'ping')
 
@@ -47,32 +47,32 @@ uptime.innerText = process.uptime();
 
 var initialPromise = process.getProcessMemoryInfo();
 initialPromise.then(
-	function (res) {
-		console.group('SysInfo')
-		console.log('Process:', res);
-		console.groupEnd()
-		proc.innerText = res.private + ' / ' + res.residentSet + ' / ' + res.shared;
-	},
-	function (err) {
-		console.error(err);
-	}
+  function (res) {
+    console.group('SysInfo')
+    console.log('Process:', res);
+    console.groupEnd()
+    proc.innerText = res.private + ' / ' + res.residentSet + ' / ' + res.shared;
+  },
+  function (err) {
+    console.error(err);
+  }
 );
 
 // Refresh display
 setInterval(() => {
-	cpu.innerText = process.getCPUUsage().percentCPUUsage;
-	mem.innerText = process.getSystemMemoryInfo().free + ' / ' + process.getSystemMemoryInfo().total;
-	heap.innerText = process.getHeapStatistics().usedHeapSize + ' / ' + process.getHeapStatistics().totalHeapSize + ' / ' + process.getHeapStatistics().heapSizeLimit;
-	blink.innerText = process.getBlinkMemoryInfo().allocated + ' / ' + process.getBlinkMemoryInfo().total;
-	uptime.innerText = process.uptime();
+  cpu.innerText = process.getCPUUsage().percentCPUUsage;
+  mem.innerText = process.getSystemMemoryInfo().free + ' / ' + process.getSystemMemoryInfo().total;
+  heap.innerText = process.getHeapStatistics().usedHeapSize + ' / ' + process.getHeapStatistics().totalHeapSize + ' / ' + process.getHeapStatistics().heapSizeLimit;
+  blink.innerText = process.getBlinkMemoryInfo().allocated + ' / ' + process.getBlinkMemoryInfo().total;
+  uptime.innerText = process.uptime();
 
-	var promise = process.getProcessMemoryInfo();
-	promise.then(
-		function (res) {
-			proc.innerText = res.private + ' / ' + res.residentSet + ' / ' + res.shared;
-		},
-		function (err) {
-			console.error(err);
-		}
-	);
+  var promise = process.getProcessMemoryInfo();
+  promise.then(
+    function (res) {
+        proc.innerText = res.private + ' / ' + res.residentSet + ' / ' + res.shared;
+    },
+    function (err) {
+        console.error(err);
+    }
+  );
 }, 1000);
