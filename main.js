@@ -32,8 +32,11 @@ const ClamScan = new NodeClam().init({
 function createWindow () {
   // Create the browser window,
   const win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    // width: 800,
+    // height: 600,
+    fullscreen: true,
+    darkTheme: true,
+    vibrancy: 'dark',
     webPreferences: {
       nodeIntegration: true,
       worldSafeExecuteJavaScript: true
