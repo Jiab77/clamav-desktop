@@ -1,7 +1,7 @@
 {
-  "name": "clamav-desktop",
+  "name": "ClamAV Desktop",
   "version": "0.1.0",
-  "description": "Clamav desktop interface based on Electron.",
+  "description": "ClamAV desktop interface based on Electron.",
   "private": true,
   "main": "main.js",
   "dependencies": {},
