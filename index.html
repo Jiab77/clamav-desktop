@@ -14,12 +14,12 @@
     </style>
   </head>
   <body>
-    <div style="width: 55%; margin: 2em auto;">
+    <div style="width: 60%; margin: 2em auto;">
       <div style="float: left;">
         <h1>Hello World!</h1>
-        You are using node <script>document.write(process.versions.node)</script>,
-        Chrome <script>document.write(process.versions.chrome)</script>,
-        and Electron <script>document.write(process.versions.electron)</script>.
+        You are running <span id="platform" style="text-transform: capitalize;"></span> with Node <span id="node"></span>,
+        Chrome <span id="chrome"></span>,
+        and Electron <span id="electron"></span>.
       </div>
       <div style="float: left; margin-left: 1em;">
         <h1 style="text-align: center;">System Info</h1>
@@ -33,7 +33,7 @@
               <li>Blink (used / total): <span id="blink"></span> bytes</li>
             </ul>
           </li>
-          <li>Kernel: <script>document.write(process.getSystemVersion())</script></li>
+          <li>Kernel: <span id="kernel"></span></li>
           <li>Uptime: <span id="uptime"></span> seconds</li>
         </ul>
       </div>
@@ -41,10 +41,10 @@
       <div style="float: left;">
         <h1>User Info</h1>
         <ul>
-          <li>Username: <script>document.write(process.env.USERNAME)</script></li>
-          <li>Lang: <script>document.write(process.env.LANG)</script></li>
-          <li>Home: <script>document.write(process.env.HOME)</script></li>
-          <li>Path: <script>document.write(process.env.PATH)</script></li>
+          <li>Username: <span id="username"></span></li>
+          <li>Lang: <span id="lang"></span></li>
+          <li>Home: <span id="home"></span></li>
+          <li>Path: <span id="path"></span></li>
         </ul>
       </div>
     </div>
