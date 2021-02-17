@@ -117,30 +117,29 @@ ipcMain.on('asynchronous-message', (event, arg) => {
 }) */
 
 console.group('App')
-console.log('Starting ClamAV...');
+console.log('Starting ClamAV...')
 console.groupEnd()
 
 // Get instance by resolving ClamScan promise object
 ClamScan.then(async clamscan => {
   try {
     // You can re-use the `clamscan` object as many times as you want
-    const version = await clamscan.get_version();
+    const version = await clamscan.get_version()
     console.group('ClamAV')
-    console.log('ClamAV Started.');
-    console.log(`ClamAV Version: ${version}`);
-    console.log('Scanning project folder...');
+    console.log('ClamAV Started.')
+    console.log(`ClamAV Version: ${version}`)
     console.groupEnd()
 
-    /* const {is_infected, file, viruses} = await clamscan.is_infected('/some/file.zip');
-    if (is_infected) console.log(`${file} is infected with ${viruses}!`); */
+    /* const {is_infected, file, viruses} = await clamscan.is_infected('/some/file.zip')
+    if (is_infected) console.log(`${file} is infected with ${viruses}!`) */
 
     /* try {
-      const {path, is_infected, good_files, bad_files, viruses} = await clamscan.scan_dir('/home/jiab77/Projects/clamav-desktop');
+      const {path, is_infected, good_files, bad_files, viruses} = await clamscan.scan_dir('/home/jiab77/Projects/clamav-desktop')
       if (bad_files.length > 0) {
-          console.log(`${path} was infected. The offending files (${bad_files.join (', ')}) have been quarantined.`);
-          console.log(`Viruses Found: ${viruses.join(', ')}`);
+          console.log(`${path} was infected. The offending files (${bad_files.join (', ')}) have been quarantined.`)
+          console.log(`Viruses Found: ${viruses.join(', ')}`)
       } else {
-          console.log("Everything looks good! No problems here!.");
+          console.log("Everything looks good! No problems here!.")
       }
     } catch (err) {
       // Handle any errors raised by the code in the try block
@@ -150,18 +149,19 @@ ClamScan.then(async clamscan => {
     } */
 
     clamscan.scan_dir('/home/jiab77/Projects/clamav-desktop', (err, good_files, bad_files, viruses) => {
-        if (err) return console.error(err);
+        if (err) return console.error(err)
 
         console.group('ClamAV')
+        console.log('Scanning project folder...')
         if (bad_files.length > 0) {
-            console.log(`${path} was infected. The offending files (${bad_files.join (', ')}) have been quarantined.`);
-            console.log(`Viruses Found: ${viruses.join(', ')}`);
+            console.log(`${path} was infected. The offending files (${bad_files.join (', ')}) have been quarantined.`)
+            console.log(`Viruses Found: ${viruses.join(', ')}`)
         } else {
-            console.log('Everything looks good! No problems here!.');
+            console.log('Everything looks good! No problems here!.')
         }
         console.log(`File scanned: ${good_files.length}`)
         console.groupEnd()
-    });
+    })
 
   } catch (err) {
     // Handle any errors raised by the code in the try block
@@ -174,4 +174,4 @@ ClamScan.then(async clamscan => {
     console.group('Init catched error')
     console.error(err)
     console.groupEnd()
-});
+})
