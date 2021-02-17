@@ -1,6 +1,6 @@
 {
-  "name": "ClamAV Desktop",
-  "version": "0.1.0",
+  "name": "clamav-desktop",
+  "version": "1.0.0",
   "description": "ClamAV desktop interface based on Electron.",
   "private": true,
   "main": "main.js",
@@ -10,9 +10,17 @@
     "electron": "^10.1.1"
   },
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Jiab77 <jonathan.barda@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jiab77/clamav-desktop.git"
+  },
+  "author": "Jiab77 <jonathan.barda@pm.me>",
   "license": "MIT",
-  "homepage": "https://github.com/Jiab77/clamav-desktop"
+  "bugs": {
+    "url": "https://github.com/Jiab77/clamav-desktop/issues"
+  },
+  "homepage": "https://github.com/Jiab77/clamav-desktop#readme"
 }
