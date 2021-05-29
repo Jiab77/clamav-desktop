@@ -1,6 +1,6 @@
 # Clamav Desktop
 
-Electron based desktop interface for Clamav
+Electron based desktop interface for ClamAV
 
 ## Involved libraries
 
